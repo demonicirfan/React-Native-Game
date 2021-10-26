@@ -15,25 +15,50 @@ import Gaming from './assets/gaming.svg';
 
 const Stack = createNativeStackNavigator();
 
-function App() {
+const App = () => {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen
+          component={Main}
+          name='Main'
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen component={Home} name='Home' />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+};
+
+const Main = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.SafeAreaStyles}>
-      <View style={{ marginTop: 30 }}>
+      <View style={{ marginTop: 20 }}>
         <Text style={styles.TextGameon}>GAMEON</Text>
       </View>
       <View style={styles.GamingView}>
-        <Gaming
-          width={300}
-          height={300}
-        />
+        <Gaming width={300} height={300} />
       </View>
-      <TouchableOpacity style={styles.TouchableStyles}>
+      <TouchableOpacity
+        style={styles.TouchableStyles}
+        onPress={() => navigation.navigate('Home')}
+      >
         <Text style={styles.TextLetsBegin}>Let's Begin</Text>
         <MaterialIcons name='arrow-forward-ios' size={22} color='#fff' />
       </TouchableOpacity>
     </SafeAreaView>
   );
-}
+};
+
+const Home = () => {
+  return (
+    <View style={styles.HomeView}>
+      <Text>Home Screen</Text>
+    </View>
+  );
+};
+
+export default App;
 
 const styles = StyleSheet.create({
   SafeAreaStyles: {
@@ -65,5 +90,9 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontFamily: 'Roboto-MediumItalic',
   },
+  HomeView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 });
-export default App;
